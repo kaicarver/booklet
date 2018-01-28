@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Booklet for Printing</title>
+<style>
+/* force chrome to use every background color and image exactly as coded */
+@media print { 
+  @page{
+      size: A4 landscape;
+      margin-left:0.0cm;
+      margin-right:0.0cm;
+      margin:0.0cm;
+  }
+}
+html{-webkit-print-color-adjust:exact;}
+body { margin: 0px; padding 0px; }
+.outsidecard { border: 1px solid black; }
+.outsidecard { position: absolute; border: 1px solid black; padding: 0px; }
+.insidecard { font-family: Arial; font-size: 9pt; padding: 10px; position: relative; overflow: hidden; }
+.l1 { font-size: 12pt; }
+.l3 { height: 355px; }
+.verso { transform: scale(-1, -1); }
+.message {
+  width: 350px; height: 125px;
+  background-color: lightgray;
+  position: absolute;
+  padding: 10px;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: 1px dotted black;
+  display: table-cell;
+  vertical-align: middle;
+  font-family: Arial;
+}
+.message p { 
+  margin-left: auto;
+  margin-right: auto;
+  width: 260px;
+  text-align: center;
+}
+.message .close {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+}
+.outsidecard {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;    
+}
+#card0 { background-image: url('Catwings/IMG_2095.PNG'); }
+#card1 { }
+#card2 { background-image: url('Catwings/IMG_2097.PNG'); }
+#card3 { background-image: url('Catwings/IMG_2110.PNG'); }
+#card4 { background-image: url('Catwings/IMG_2111.PNG'); }
+#card5 { background-image: url('Catwings/IMG_2112.PNG'); }
+#card6 { background-image: url('Catwings/IMG_2113.PNG'); }
+#card7 { background-image: url('Catwings/IMG_2114.PNG'); }
+#card8 { background-image: url('Catwings/IMG_2115.PNG'); }
+#card9 { background-image: url('Catwings/IMG_2116.PNG'); }
+#card10 { background-image: url('Catwings/IMG_2117.PNG'); }
+#card11 { background-image: url('Catwings/IMG_2118.PNG'); }
+#card12 { background-image: url('Catwings/IMG_2119.PNG'); }
+#card13 { background-image: url('Catwings/IMG_2120.PNG'); }
+#card14 { background-image: url('Catwings/IMG_2121.PNG'); }
+#card15 { background-image: url('Catwings/IMG_2096.PNG'); }
+</style>
+<script>
+// the folded booklet needs pages to be in this order, negative numbers upside down
+var pageseq = [4,13,16,1,-5,-12,-9,-8,2,15,14,3,-7,-10,-11,-6];
+var data = new Array();
+data["name"] = "Booklet Testing";
+data["phone"] = "0931157391";
+data["email"] = "kaicarver@gmail.com";
+function modify(element) {
+  var className = element.classList[0];
+  var newVal = prompt("Change text:", data[className]);
+  if (newVal != null) {
+    data[className] = newVal;
+    fill();
+  }
+}
+function fill() {
+  var cardWidth = 280;
+  var cardHeight = 400;
+  var numCards = 16;
+  var numCols = 4;
+  var initialHorSpacing = 10;
+  var horSpacing = 10;
+  var initialVerSpacing = 15;
+  var verSpacing = 5;
+  var foldableCard = (location.hash === '#foldable');
+  document.body.innerHTML = '';
+  for (var i = 0; i < numCards; i++) {
+    var topPos = initialVerSpacing + (cardHeight + verSpacing) * Math.floor(i/numCols);
+    var leftPos = initialHorSpacing + (cardWidth + horSpacing) * (i % numCols);
+    if (foldableCard && Math.floor(i/numCols) % 2 == 0) {
+    document.body.innerHTML += '\
+<div class="outsidecard" id="card'+i+'" style="width: '+cardWidth+'px; height: '+cardHeight+'px; top: '+topPos+'px; left: '+leftPos+'px">\
+<div class="insidecard">\
+</div>\
+</div>';      
+    } else {
+    document.body.innerHTML += '\
+<div class="outsidecard" id="card'+i+'" style="width: '+cardWidth+'px; height: '+cardHeight+'px; top: '+topPos+'px; left: '+leftPos+'px">\
+<div class="insidecard">\
+<div class="l1">臺北創客空間</div>\
+<div class="l3">\
+</div>\
+<div class="l4">taipeihackerspace@googlegroups.com</div>\
+</div>\
+</div>';
+    }
+  }
+}
+</script>
+</head>
+<body onload="fill()">
+</body>
+</html>
