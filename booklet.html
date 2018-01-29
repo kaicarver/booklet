@@ -60,13 +60,13 @@ body { margin: 0px; padding 0px; }
 #card5 { background-image: url('Catwings/IMG_2112.PNG'); }
 #card6 { background-image: url('Catwings/IMG_2113.PNG'); }
 #card7 { background-image: url('Catwings/IMG_2114.PNG'); }
-#card8 { background-image: url('Catwings/IMG_2115.PNG'); }
-#card9 { background-image: url('Catwings/IMG_2116.PNG'); }
-#card10 { background-image: url('Catwings/IMG_2117.PNG'); }
-#card11 { background-image: url('Catwings/IMG_2118.PNG'); }
-#card12 { background-image: url('Catwings/IMG_2119.PNG'); }
-#card13 { background-image: url('Catwings/IMG_2120.PNG'); }
-#card14 { background-image: url('Catwings/IMG_2121.PNG'); }
+#card8 { background-image: url('Catwings/IMG_2116.PNG'); }
+#card9 { background-image: url('Catwings/IMG_2117.PNG'); }
+#card10 { background-image: url('Catwings/IMG_2118.PNG'); }
+#card11 { background-image: url('Catwings/IMG_2119.PNG'); }
+#card12 { background-image: url('Catwings/IMG_2120.PNG'); }
+#card13 { background-image: url('Catwings/IMG_2121.PNG'); }
+#card14 {  }
 #card15 { background-image: url('Catwings/IMG_2096.PNG'); }
 </style>
 <script>
@@ -85,9 +85,19 @@ function fill() {
   for (var i = 0; i < numCards; i++) {
     var topPos = initialVerSpacing + (cardHeight + verSpacing) * Math.floor(i/numCols);
     var leftPos = initialHorSpacing + (cardWidth + horSpacing) * (i % numCols);
-    var cardid = Math.abs(pageseq[i]) - 1;
+    var cardid = i;
+    var sequenceForFolding = true;
+    if (sequenceForFolding) {
+      cardid = pageseq[i];
+      var extrastyle = '';
+      if (cardid < 0) { // negative id means orientation should be upside down
+	cardid = -cardid;
+	extrastyle = ' transform: scale(-1, -1);';
+      }
+      cardid = cardid - 1;
+    }
     document.body.innerHTML += '\
-<div class="outsidecard" id="card'+cardid+'" style="width: '+cardWidth+'px; height: '+cardHeight+'px; top: '+topPos+'px; left: '+leftPos+'px">\
+<div class="outsidecard" id="card'+cardid+'" style="width: '+cardWidth+'px; height: '+cardHeight+'px; top: '+topPos+'px; left: '+leftPos+'px;'+extrastyle+'">\
 <div class="insidecard">\
 <div class="l1">臺北創客空間</div>\
 <div class="l3">\
